@@ -1,121 +1,112 @@
-
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { CartContext } from '../Context/CartContext';
+import * as Yup from 'yup';
 
-export default function CheckOut() {
-  let { CheckOut, cart } = useContext(CartContext);
-  const [apiError, setApiError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+const ContactUs = () => {
+  const [submitted, setSubmitted] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      details: '',
-      phone: '',
-      city: '',
+      name: '',
+      email: '',
+      message: ''
     },
-    onSubmit: () => handleCheckOut(`${cart.cartId}`, 'http://localhost:5174'),
+    validationSchema: Yup.object({
+      name: Yup.string().required('Name is required'),
+      email: Yup.string().email('Invalid email').required('Email is required'),
+      message: Yup.string().required('Message is required')
+    }),
+    onSubmit: (values, { resetForm }) => {
+      console.log('Form data:', values);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        resetForm();
+      }, 2000);
+    }
   });
 
-  async function handleCheckOut(cartId, url) {
-    setIsLoading(true);
-    try {
-      let { data } = await CheckOut(cartId, url, formik.values);
-      if (data.status === 'success') {
-        window.location.href = data.session.url;
-      }
-    } catch (error) {
-      setApiError('Failed to complete checkout. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   return (
-    <div className="min-h-screen flex justify-center items-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-blue-500 to-indigo-600 animate-gradient-xy"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-green-400 via-blue-500 to-indigo-600 opacity-70 animate-gradient-xy"></div>
-      <div className="relative z-10 w-full max-w-md mx-auto backdrop-blur-md bg-white/30 rounded-2xl p-8 shadow-2xl">
-        <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">CheckOut Now</h2>
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 p-4 transition-colors duration-300">
+      <form 
+        onSubmit={formik.handleSubmit} 
+        className="w-full max-w-lg p-8 shadow-2xl rounded-2xl bg-gray-100 dark:bg-gray-800 mx-4 transition-colors duration-300"
+      >
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+          Contact Us
+        </h2>
 
-        {apiError && (
-          <div className="p-4 mb-4 text-sm text-red-800 bg-red-50 rounded-lg">{apiError}</div>
+        {submitted && (
+          <p className="text-blue-600 dark:text-blue-400 text-center mb-4">
+            ✅ Message sent successfully!
+          </p>
         )}
 
-        <form onSubmit={formik.handleSubmit} className="space-y-5">
-          <div className="relative z-0 w-full group">
-            <input
-              value={formik.values.details}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="text"
-              name="details"
-              id="details"
-              className="block py-2.5 px-3 w-full text-sm text-gray-900 bg-gray-100 rounded-md border border-gray-300 focus:border-green-500 focus:ring-green-500"
-              placeholder="Enter Your Details"
-              required
-            />
-          </div>
-
-          <div className="relative z-0 w-full group">
-            <input
-              value={formik.values.city}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="text"
-              name="city"
-              id="city"
-              className="block py-2.5 px-3 w-full text-sm text-gray-900 bg-gray-100 rounded-md border border-gray-300 focus:border-green-500 focus:ring-green-500"
-              placeholder="Enter Your City"
-              required
-            />
-          </div>
-
-          <div className="relative z-0 w-full group">
-            <input
-              required
-              value={formik.values.phone}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="tel"
-              name="phone"
-              id="phone"
-              className="block py-2.5 px-3 w-full text-sm text-gray-900 bg-gray-100 rounded-md border border-gray-300 focus:border-green-500 focus:ring-green-500"
-              placeholder="Enter Your Phone"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center flex items-center justify-center"
-            disabled={isLoading}
+        <div className="relative mb-6">
+          <input
+            type="text"
+            name="name"
+            className="w-full p-3 border border-blue-400 dark:border-blue-500 bg-transparent rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 peer transition-all duration-300 text-gray-800 dark:text-white"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+          />
+          <label 
+            className="absolute left-3 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 dark:peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:text-xs peer-focus:text-blue-500"
           >
-            {isLoading ? (
-              <svg
-                className="animate-spin h-5 w-5 mr-3 text-white"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v8H4z"
-                ></path>
-              </svg>
-            ) : (
-              'CheckOut'
-            )}
-          </button>
-        </form>
-      </div>
+            Name
+          </label>
+          {formik.touched.name && formik.errors.name && (
+            <p className="text-red-500 text-sm">{formik.errors.name}</p>
+          )}
+        </div>
+
+        <div className="relative mb-6">
+          <input
+            type="email"
+            name="email"
+            className="w-full p-3 border border-blue-400 dark:border-blue-500 bg-transparent rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 peer transition-all duration-300 text-gray-800 dark:text-white"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+          />
+          <label 
+            className="absolute left-3 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 dark:peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:text-xs peer-focus:text-blue-500"
+          >
+            Email
+          </label>
+          {formik.touched.email && formik.errors.email && (
+            <p className="text-red-500 text-sm">{formik.errors.email}</p>
+          )}
+        </div>
+
+        <div className="relative mb-6">
+          <textarea
+            name="message"
+            className="w-full p-3 border border-blue-400 dark:border-blue-500 bg-transparent rounded-2xl h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none peer transition-all duration-300 text-gray-800 dark:text-white"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.message}
+          />
+          <label 
+            className="absolute left-3 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 dark:peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:text-xs peer-focus:text-blue-500"
+          >
+            Message
+          </label>
+          {formik.touched.message && formik.errors.message && (
+            <p className="text-red-500 text-sm">{formik.errors.message}</p>
+          )}
+        </div>
+
+        <button 
+          type="submit" 
+          className="w-full bg-blue-500 dark:bg-blue-600 text-white py-3 rounded-2xl hover:bg-blue-600 dark:hover:bg-blue-700 transition-all duration-300"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
-}
+};
+
+export default ContactUs;

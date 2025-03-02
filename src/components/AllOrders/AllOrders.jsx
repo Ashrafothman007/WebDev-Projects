@@ -47,9 +47,9 @@ export default function AllOrders() {
 
   return (
     <div className="container mx-auto p-6">
-      <h2 className="text-center text-2xl font-bold mb-4">Your Orders</h2>
+      <h2 className="text-center text-2xl font-bold mb-4 text-blue-500 dark:text-gray-300">Your Orders</h2>
       {orders.length === 0 ? (
-        <p className="text-center text-gray-600">You have no orders yet.</p>
+        <p className="text-center text-gray-600 dark:text-gray-400">You have no orders yet.</p>
       ) : (
         <div className="grid gap-6">
           {orders.map((order, index) => (
@@ -71,7 +71,7 @@ export default function AllOrders() {
               </p>
               <Link
                 to={`/orderdetails/${order.id}`}
-                className="text-blue-500 hover:underline"
+                className="text-blue-500 dark:text-gray-300 hover:underline"
               >
                 View Details
               </Link>

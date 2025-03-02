@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="mt-2 px-2 md:px-6 lg:px-12">
+      <div className="mt-2 px-2 md:px-6 lg:px-12 bg-lightBlue dark:bg-darkGray min-h-screen">
         {/* السلايدر الكبير */}
         <div className="grid grid-cols-6 gap-4">
           <div className="col-span-4">
@@ -78,7 +78,7 @@ export default function Home() {
               <SwiperSlide key={cat._id} className="flex flex-col items-center">
                 <Link to={`/products?category=${cat._id}`}>
                   <img src={cat.image} className="h-[200px] w-full object-cover rounded-lg" alt={cat.name} />
-                  <div className="text-center text-cyan-900 font-medium mt-2 py-6">{cat.name}</div>
+                  <div className="text-center text-blue-800 dark:text-gray-300 font-medium mt-2 py-6">{cat.name}</div>
                 </Link>
               </SwiperSlide>
             ))}
@@ -88,12 +88,12 @@ export default function Home() {
 
       {prodLoad ? (
         <div className="w-full h-screen flex justify-center items-center">
-          <BeatLoader color="#22c55e" size={15} />
+          <BeatLoader color="#3b82f6" size={15} />
         </div>
       ) : (
         <div className="container mx-auto py-10 px-4">
           <div className="flex justify-center items-center mb-6">
-            <h2 className="text-4xl font-extrabold px-6 py-2 bg-gradient-to-r from-green-500 via-white to-green-500 text-gray-900 shadow-md tracking-wide rounded-lg">
+            <h2 className="text-4xl font-extrabold px-6 py-2 bg-gradient-to-r from-blue-500 via-white to-blue-500 dark:from-gray-700 dark:via-gray-900 dark:to-gray-700 text-gray-900 dark:text-gray-200 shadow-md tracking-wide rounded-lg">
               Our Products
             </h2>
           </div>
@@ -102,7 +102,7 @@ export default function Home() {
             {allProducts?.length > 0 ? (
               allProducts?.map((product) => <ProductsCard product={product} key={product._id} />)
             ) : (
-              <p className="text-center text-gray-500 text-xl">No products available</p>
+              <p className="text-center text-gray-500 dark:text-gray-300 text-xl">No products available</p>
             )}
           </div>
         </div>

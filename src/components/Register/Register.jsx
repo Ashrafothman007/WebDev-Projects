@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
 
-
 export default function Register() {
   let navigate = useNavigate();
   const [apiError, setApiError] = useState("");
@@ -61,26 +60,14 @@ export default function Register() {
   });
 
   return (
-    <div
-      className="min-h-screen flex justify-center items-center relative overflow-hidden bg-gradient-to-r from-green-400/100 to-blue-500/80 px-5 py-20"
-
-    >
-
-      <div className="absolute inset-0 bg-black opacity-40"></div>
-
-      <div className="relative z-10 container max-w-lg mx-auto backdrop-blur-sm bg-white/50 shadow-lg rounded-2xl p-8">
-        <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center ">Register Now</h2>
-
-        {apiError && (
-          <div className="p-4 mb-4 text-sm text-red-800 bg-red-50 rounded-lg">{apiError}</div>
-        )}
-
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900 px-5 py-20">
+      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 w-full max-w-lg">
+        <h2 className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-6 text-center">Register Now</h2>
+        {apiError && <div className="p-4 mb-4 text-sm text-red-800 bg-red-200 rounded-lg">{apiError}</div>}
         <form onSubmit={formik.handleSubmit}>
-          {["name", "email", "phone"].map((field, index) => (
+          {['name', 'email', 'phone'].map((field, index) => (
             <div key={index} className="mb-4">
-              <label className="block text-gray-800 font-medium capitalize">
-                {field}
-              </label>
+              <label className="block text-gray-800 dark:text-gray-200 font-medium capitalize">{field}</label>
               <input
                 type={field}
                 name={field}
@@ -88,17 +75,16 @@ export default function Register() {
                 value={formik.values[field]}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 mt-1 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {formik.errors[field] && formik.touched[field] && (
                 <div className="text-red-500 text-sm mt-1">{formik.errors[field]}</div>
               )}
             </div>
           ))}
-
-          {["password", "rePassword"].map((field, index) => (
+          {['password', 'rePassword'].map((field, index) => (
             <div key={index} className="mb-4 relative">
-              <label className="block text-gray-800 font-medium capitalize">
+              <label className="block text-gray-800 dark:text-gray-200 font-medium capitalize">
                 {field === "rePassword" ? "Confirm Password" : "Password"}
               </label>
               <input
@@ -108,15 +94,11 @@ export default function Register() {
                 value={formik.values[field]}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 mt-1 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <span
-                className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer"
-                onClick={() =>
-                  field === "password"
-                    ? setShowPassword(!showPassword)
-                    : setShowRePassword(!showRePassword)
-                }
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300 cursor-pointer"
+                onClick={() => field === "password" ? setShowPassword(!showPassword) : setShowRePassword(!showRePassword)}
               >
                 <i className={`fas fa-eye${(field === "password" && showPassword) || (field === "rePassword" && showRePassword) ? "-slash" : ""}`}></i>
               </span>
@@ -125,19 +107,16 @@ export default function Register() {
               )}
             </div>
           ))}
-
           <div className="flex justify-between items-center">
             <button
               type="submit"
               disabled={isLoading}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:opacity-50"
+              className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:opacity-50"
             >
               {isLoading ? <i className="fas fa-spinner fa-spin"></i> : "Register"}
             </button>
             <span className="font-semibold mx-10">
-              <Link to={"/login"} className="hover:text-blue-900 hover:underline text-blue-700">
-                Login Now
-              </Link>
+              <Link to="/login" className="hover:text-blue-500 hover:underline text-blue-800 dark:text-blue-400">Login Now</Link>
             </span>
           </div>
         </form>

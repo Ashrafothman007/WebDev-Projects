@@ -2,7 +2,7 @@
   "name": "freshcart",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://MohamedKamal100.github.io/E-Commerce",
+  "homepage": "https://Ashrafothman007.github.io/WebDev-Projects",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",

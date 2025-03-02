@@ -1,81 +1,47 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-3 bottom-0 w-full">
+    <footer className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white py-6 w-full transition-colors duration-300">
       <div className="container mx-auto flex flex-col items-center text-center">
-        {/* Animated Logo */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <motion.h1
-            className="text-3xl font-bold text-green-400"
-            animate={{ scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-          >
-            Arbawy
-          </motion.h1>
-        </motion.div>
+        {/* Logo */}
+      
 
-
-        <motion.ul
-          className="flex space-x-6 mt-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        {/* Links */}
+        <ul className="flex space-x-6 mt-4">
           {[
             { name: "Home", path: "/" },
             { name: "About", path: "/about" },
             { name: "Services", path: "/services" },
             { name: "Contact", path: "/contactus" }
           ].map((link, index) => (
-            <motion.li
-              key={index}
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Link to={link.path} className="hover:text-green-400 transition">
+            <li key={index}>
+              <Link to={link.path} className="hover:text-blue-500 dark:hover:text-blue-400 transition">
                 {link.name}
               </Link>
-            </motion.li>
+            </li>
           ))}
-        </motion.ul>
+        </ul>
 
-
-        <motion.div
-          className="flex space-x-6 mt-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
+        {/* Social Icons */}
+        <div className="flex space-x-6 mt-6">
           {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin].map((Icon, index) => (
-            <motion.a
+            <a
               key={index}
               href="#"
-              className="text-xl hover:text-green-400 transition"
-              whileHover={{ scale: 1.2 }}
-              transition={{ duration: 0.2 }}
+              className="text-xl hover:text-blue-500 dark:hover:text-blue-400 transition"
             >
               <Icon />
-            </motion.a>
+            </a>
           ))}
-        </motion.div>
+        </div>
 
-
-        <motion.p
-          className="mt-6 text-sm text-gray-400"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-        >
-          © 2024 Arbawy. All Rights Reserved.
-        </motion.p>
+        {/* Copyright */}
+        <p className="mt-6 text-sm text-gray-600 dark:text-gray-400">
+          © 2025 All Rights Reserved.
+        </p>
       </div>
     </footer>
   );

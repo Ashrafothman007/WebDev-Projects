@@ -20,13 +20,15 @@ export default function Brands() {
   return (
     <div className="container mx-auto py-10">
       <div className="flex justify-center items-center mb-6">
-        <h2 className="text-4xl font-extrabold px-6 py-2 bg-gradient-to-r from-green-500 via-white to-green-500 text-gray-900 shadow-md tracking-wide rounded-lg space-x-2">
+        <h2 className="text-4xl font-extrabold px-6 py-2 bg-gradient-to-r from-blue-400 via-white to-blue-400 
+        text-gray-900 dark:text-gray-300 shadow-md tracking-wide rounded-lg space-x-2">
           All Brands
         </h2>
       </div>
+
       {isLoading ? (
         <div className="flex justify-center items-center h-screen">
-          <BeatLoader color="#22c55e" size={15} />
+          <BeatLoader color="#60a5fa" size={15} />
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
@@ -34,10 +36,12 @@ export default function Brands() {
             <Link
               key={brand._id}
               to={`/products?brand=${brand._id}`}
-              className="group relative cursor-pointer bg-white border border-gray-300 p-4 rounded-lg shadow-md hover:shadow-lg transform transition duration-300 hover:scale-105"
+              className="relative cursor-pointer bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 p-4 rounded-lg shadow-md transition duration-300"
             >
-              <img src={brand.image} alt={brand.name} className="w-full h-40 object-contain rounded-lg" />
-              <h4 className="mt-3 text-center font-semibold text-gray-800 group-hover:text-green-600">{brand.name}</h4>
+              <img src={brand.image} alt={brand.name} className="w-full h-40 object-cover rounded-lg" />
+              <h4 className="mt-3 text-center font-semibold text-gray-800 dark:text-gray-300">
+                {brand.name}
+              </h4>
             </Link>
           ))}
         </div>
