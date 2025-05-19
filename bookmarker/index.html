@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMarker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- 🔹 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- 🔹 FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+    <!-- 🔹 Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="title fs-1 text-center mt-5 position-relative">
+            <h1 class="fs-1">BookMarker</h1>
+        </div>
+
+        <div class="bookmark-body w-100 py-4 mt-5 ">
+            <div class="head d-flex justify-content-center align-items-center">
+                <h2><i class="fa-solid fa-bookmark"></i> Bookmark Your Favorite Sites <i class="fa-solid fa-bookmark"></i></h2>
+            </div>
+
+            <div class="mb-3">
+                <label for="siteName" class="form-label fw-semibold">
+                    <i class="fa-solid fa-book-bookmark pe-2"></i> Site Name  
+                </label>
+                <input type="text" class="form-control" id="siteName" required>
+                <div class="invalid-feedback">Please enter at least 3 characters.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="siteUrl" class="form-label fw-semibold">
+                    <i class="fa-solid fa-link pe-2"></i> Site URL
+                </label>
+                <input type="url" class="form-control" id="siteUrl" required>
+                <div class="invalid-feedback">Please enter a valid URL (e.g., https://example.com).</div>
+            </div>
+
+            <div class="text-center">
+                <button id="addBtn" onclick="addsite()" class="btn btn-success mx-2"><i class="fa-regular fa-paper-plane"></i> Submit</button>
+                <button id="updateBtn" onclick="updateSite()" class="btn btn-info mx-2" style="display:none;"><i class="fa-solid fa-arrows-rotate"></i> Update</button>
+            </div>
+        </div>
+
+        <table class="table mt-4 text-center bg-light">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Site Name</th>
+                    <th>Visit</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="tableContent"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 🔹 JavaScript File -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
